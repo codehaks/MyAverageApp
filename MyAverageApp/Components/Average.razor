@@ -1,0 +1,40 @@
+﻿<h3>Average App</h3>
+
+<h4>Numbers</h4>
+@for (var i = 0; i < Numbers.Count; i++)
+{
+    var current = i;
+    <input type="number" value="@Numbers[i]" class="form-control m-1" @onchange="@(e => Numbers[current] = Convert.ToInt32(e.Value))"/>
+}
+
+<button @onclick="CalculateAverage" class="btn btn-primary">Send</button>
+<button @onclick="AddNumberInput" class="btn btn-primary">+</button>
+<button @onclick="RemoveNumberInput" class="btn btn-danger">-</button>
+<h3>Result</h3>
+
+Average : @Avg
+
+@code {
+    private int currentCount = 0;
+
+    public IList<int> Numbers { get; set; } = new List<int>();
+    public int Avg { get; set; }
+    protected override void OnInitialized()
+    {
+        Numbers = new List<int> { 10, 20};
+    }
+
+    public void CalculateAverage()
+    {
+        Avg = (int)Numbers.Average();
+    }
+
+    public void AddNumberInput()
+    {
+        Numbers.Add(0);
+    }
+    public void RemoveNumberInput()
+    {
+        Numbers.Remove(Numbers.Last());
+    }
+}
