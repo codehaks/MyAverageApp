@@ -4,7 +4,7 @@
 @for (var i = 0; i < Numbers.Count; i++)
 {
     var current = i;
-    <input type="number" value="@Numbers[i]" class="form-control m-1" @onchange="@(e => Numbers[current] = Convert.ToInt32(e.Value))"/>
+    <input type="number" value="@Numbers[i]" class="form-control m-1" @onchange="@(e =>GetAverage(e,current))"/>
 }
 
 <button @onclick="CalculateAverage" class="btn btn-primary">Send</button>
@@ -26,6 +26,12 @@ Average : @Avg
 
     public void CalculateAverage()
     {
+        Avg = (int)Numbers.Average();
+    }
+
+    public void GetAverage(ChangeEventArgs e,int current)
+    {
+        Numbers[current] = Convert.ToInt32(e.Value);
         Avg = (int)Numbers.Average();
     }
 
